@@ -1,6 +1,6 @@
 package com.changddao.refactorAPI.repository;
 
-import com.changddao.refactorAPI.entity.Member;
+import com.changddao.refactorAPI.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.assertj.core.api.Assertions;
@@ -25,7 +25,8 @@ class MemberRepositoryTest {
 
 
     //when
-
+        Member findMember = memberRepository.findById(1L).get();
+        Assertions.assertThat(member1).isEqualTo(findMember);
 
     //then
 
