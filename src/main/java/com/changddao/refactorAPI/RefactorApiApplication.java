@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@Profile("local")
 public class RefactorApiApplication {
 
 	public static void main(String[] args) {
