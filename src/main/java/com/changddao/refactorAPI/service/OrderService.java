@@ -1,6 +1,7 @@
 package com.changddao.refactorAPI.service;
 
 import com.changddao.refactorAPI.domain.*;
+import com.changddao.refactorAPI.dto.OrderQueryDto;
 import com.changddao.refactorAPI.repository.ItemRepository;
 import com.changddao.refactorAPI.repository.MemberRepository;
 import com.changddao.refactorAPI.repository.OrderRepository;
@@ -8,8 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
-@Transactional
+//@Transactional
 @RequiredArgsConstructor
 public class OrderService {
     private final MemberRepository memberRepository;
@@ -35,4 +38,10 @@ public class OrderService {
         Order order = orderRepository.findByOne(orderId).get();
         order.cancel();
     }
+    public List<OrderQueryDto> transacFindOrderQueryDto() {
+        OrderSearch orderSearch = new OrderSearch();
+        List<OrderQueryDto> result = orderRepository.findOrderQueryDto(orderSearch);
+        return  result;
+    }
+
 }

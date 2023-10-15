@@ -1,7 +1,8 @@
 package com.changddao.refactorAPI.repository;
 
 import com.changddao.refactorAPI.domain.*;
-import com.querydsl.core.types.Predicate;
+import com.changddao.refactorAPI.dto.OrderQueryDto;
+import com.changddao.refactorAPI.dto.QOrderQueryDto;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -44,4 +45,14 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
         return null;
     }
 
+    @Override
+    public List<OrderQueryDto> findOrderQueryDto(OrderSearch orderSearch) {
+        List<OrderQueryDto> result = queryFactory.select(new QOrderQueryDto(order.id,
+                        member.username, order.createdDate, order.orderStatus, delivery.address))
+                .from(order)
+                .leftJoin(order.member, member)
+                .leftJoin(order.delivery, delivery)
+                .fetch();
+        return result;
+    }
 }
