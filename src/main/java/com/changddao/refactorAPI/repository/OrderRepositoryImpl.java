@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
+import static com.changddao.refactorAPI.domain.QDelivery.*;
 import static com.changddao.refactorAPI.domain.QMember.*;
 import static com.changddao.refactorAPI.domain.QOrder.*;
 
@@ -23,6 +24,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
     public List<Order> findAllUseQueryDsl(OrderSearch orderSearch) {
         List<Order> result = queryFactory.select(order).from(order)
                 .leftJoin(order.member, member).fetchJoin()
+                .leftJoin(order.delivery, delivery).fetchJoin()
                 .where(usernameEq(orderSearch.getMemberName())
                         , orderStatusEq(orderSearch))
                 .fetch();
